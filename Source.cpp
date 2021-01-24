@@ -1,6 +1,4 @@
 
-void main()
-{
 #include <iostream>
 
 using namespace std;
@@ -29,6 +27,29 @@ void InsertToTree(Node*& pRoot, Node* pNew)
 }
 
 
+
+
+
+
+
+
+
+
+int main()
+{
+
+int i;
+
+	Node* pRoot = nullptr;
+	while (true)
+	{
+		cin >> i;
+		if (i == 99)
+			break;
+
+		Node* p = new Node(i);
+		InsertToTree(pRoot, p);
+	}
 
 
 
