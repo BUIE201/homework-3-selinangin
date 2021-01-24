@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 using namespace std;
@@ -25,7 +24,20 @@ void InsertToTree(Node*& pRoot, Node* pNew)
 	else
 		InsertToTree(pRoot->pRight, pNew);
 }
-bool printPath (Node *root, int sum)
+void PrintTree(Node* pRoot, int Level)
+{
+	if (!pRoot)
+		return;
+
+	PrintTree(pRoot->pRight, Level + 1);
+
+	for (int i = 0; i < Level; i++)
+		cout << "  ";
+	cout << pRoot->i << endl;
+
+	PrintTree(pRoot->pLeft, Level + 1);
+}
+bool printPath (Node *pRoot, int sum)
 {
     // base case
     if (sum == 0) {
@@ -33,29 +45,58 @@ bool printPath (Node *root, int sum)
     }
  
     // base case
-    if (root == nullptr) {
+    if (pRoot == nullptr) {
         return false;
     }
  
     // recur for the left and right subtree with reduced sum
-    bool left = printPath(root->left, sum - root->data);
-    bool right = printPath(root->right, sum - root->data);
+    bool pLeft = printPath(pRoot->pLeft, sum - pRoot->i);
+    bool pRight = printPath(pRoot->pRight, sum - pRoot->i);
  
     // print the current node if it lies on a path with a given sum
-    if (left || right) {
-        cout << root->data << " ";
+    if (pLeft || pRight) {
+        cout << pRoot->i << " ";
     }
  
-    return left || right;
+    return pLeft || pRight;
 }
+
+// Function to calculate the maximum root-to-leaf sum in a binary tree
+int rootToLeafSum(Node* pRoot)
+{
+    // base case: tree is empty
+    if (pRoot == nullptr) {
+        return 0;
+    }
+ 
+    // calculate the maximum node-to-leaf sum for the left child
+    int pLeft = rootToLeafSum(pRoot->pLeft);
+ 
+    // calculate the maximum node-to-leaf sum for the right child
+    int pRight = rootToLeafSum(pRoot->pRight);
+ 
+    // consider the maximum sum child
+    return (pLeft > pRight? pLeft : pRight) + pRoot->i;
+}
+ void findMaxSumPath(Node *pRoot)
+{
+    int sum = rootToLeafSum(pRoot);
+    cout << "The Maximum sum is " << sum << endl;
+    cout << "The Maximum sum path is ";
+ 
+    printPath(pRoot, sum);
+}
+
+
+
+
 
 
 
 
 int main()
 {
-
-int i;
+	int i;
 
 	Node* pRoot = nullptr;
 	while (true)
@@ -68,9 +109,8 @@ int i;
 		InsertToTree(pRoot, p);
 	}
 
-
-
-
+   PrintTree(pRoot, 1);
+   findMaxSumPath(pRoot);
 
 
 
