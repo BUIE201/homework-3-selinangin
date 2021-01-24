@@ -25,6 +25,29 @@ void InsertToTree(Node*& pRoot, Node* pNew)
 	else
 		InsertToTree(pRoot->pRight, pNew);
 }
+bool printPath (Node *root, int sum)
+{
+    // base case
+    if (sum == 0) {
+        return true;
+    }
+ 
+    // base case
+    if (root == nullptr) {
+        return false;
+    }
+ 
+    // recur for the left and right subtree with reduced sum
+    bool left = printPath(root->left, sum - root->data);
+    bool right = printPath(root->right, sum - root->data);
+ 
+    // print the current node if it lies on a path with a given sum
+    if (left || right) {
+        cout << root->data << " ";
+    }
+ 
+    return left || right;
+}
 
 
 
