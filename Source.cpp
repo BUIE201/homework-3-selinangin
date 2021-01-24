@@ -29,12 +29,6 @@ void InsertToTree(Node*& pRoot, Node* pNew)
 
 
 
-
-
-
-
-
-
 int main()
 {
 
@@ -50,6 +44,10 @@ int i;
 		Node* p = new Node(i);
 		InsertToTree(pRoot, p);
 	}
+
+
+
+
 
 
 
